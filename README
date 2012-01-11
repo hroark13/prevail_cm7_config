@@ -1,0 +1,96 @@
+Squadzone has made an excellent tutorial and script for setting up and making CyanogenMod
+I am using most of it and making some tiny changes and additions for use with the Prevail
+
+Requirements :
+1.OS linux Ubuntu 11.04 64bits ( recommended ) or above
+2.2Gb RAM with 3Gb swap or above
+3.Processor Centrino Duo or above
+4.120Gb Harddisk or above
+5.Fast internet connection
+
+First download this file
+installerBuildRomGalmin.sh
+Password : squadzone
+
+you will get installerBuildRomGalmin.sh , run this file via Terminal on Ubuntu
+
+follow all instructions that appear, 
+after Finish, now we goto download repository
+
+still on Terminal
+type
+
+
+Code:
+ 
+mkdir -p ~/cm7/system
+sudo curl https://dl-ssl.google.com/dl/googlesource/git-repo/repo > /bin/repo 
+sudo chmod a+x /bin/repo
+cd /cm7/system
+repo init -u https://github.com/CyanogenMod/android.git -b gingerbread 
+repo sync -j32THIS WILL TAKE A WHILE TO FINISH
+
+download this zip file, unzip, and copy contents into /cm7/system
+prevail_cm7_config.zip
+merge all folders and overwrite any files
+
+still on Terminal
+type
+
+
+Code:
+ 
+./vendor/cyanogen/get-rommanager
+
+(ROM manager does not support our phone, but we need this file for the build to work)
+
+
+
+Code:
+ 
+source ./build/envsetup.sh
+lunch full_prevail-eng
+mka -j4 bacon
+THIS WILL TAKE A WHILE TO FINISH
+
+WHEN FINISHED YOU WILL HAVE A FOLDER
+cm7/system/out/target/product/prevail
+WITH A BUNCH OF GOODIES IN IT, LIKE YOUR ROM AND CWM(YES THIS MAKES CWM FOR YOU)
+THE ZIP FILE update-cm-nightly-signed.zip IS THE ROM
+THIS IS FLASHABLE IN CWM
+I USUALLY TAKE THAT ZIP UNZIP IT AND PUT A MODDED INSTALLER SCRIPT IN IT, REMOVE ROM MANAGER, AND ADD SOME LAST MINUTE FILES AND GAPPS FILES AND SUCH
+
+
+I BUILD THE ROM ODEXED BECAUSE WHEN I AM DEBUGGING THE ROM AN ODEXED ROM BOOTS SO MUCH FASTER THE FIRST TIME AND I AM CONSTANTLY REFLASHING AND WIPING TO TEST NEW 
+SETTINGS
+
+IF YOU WANT CM7 TO BUILD THE ROM DE-ODEXED FOR YOU
+
+EDIT THIS FILE IN TEXT EDITOR
+
+cm7/system/device/samsung/prevail/BoardConfig.mk
+
+
+ON THE BOTTOM OF THE FILE LOOK FOR THIS SECTION
+
+#JIT / Optimizations
+WITH_DEXPREOPT := true
+JS_ENGINE := v8
+
+
+Add # so it looks like this and save the file
+
+#JIT / Optimizations
+#WITH_DEXPREOPT := true
+JS_ENGINE := v8
+
+IF YOU HAVE ALREADY COMPILED THE SOURCE AND YOU MAKE CHANGES TO THE BoardConfig.mk YOU WILL HAVE TO DO THIS FOR YOUR NEXT BUILD
+
+
+
+Code:
+ 
+make clobber clean
+source ./build/envsetup.sh
+lunch full_prevail-eng
+mka -j4 bacon
