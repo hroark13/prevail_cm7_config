@@ -424,4 +424,3 @@ int register_android_server_BatteryService(JNIEnv* env)
 }
 
 } /* namespace android */
-
