@@ -31,7 +31,7 @@ repo init -u https://github.com/CyanogenMod/android.git -b gingerbread
 repo sync -j32THIS WILL TAKE A WHILE TO FINISH
 
 download this zip file, unzip, and copy contents into /cm7/system
-prevail_cm7_config.zip
+http://www.mediafire.com/?r6q55070q1uw093
 merge all folders and overwrite any files
 
 still on Terminal
